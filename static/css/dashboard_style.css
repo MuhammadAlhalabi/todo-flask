@@ -22,7 +22,6 @@ body {
     color: var(--text-dark);
 }
 
-/* --- رسائل التنبيه (احتياطاً في حال لم تُعرَّف في common_style.css) --- */
 .flash-container {
     position: fixed;
     top: 20px;
@@ -74,7 +73,6 @@ body {
     color: var(--primary);
 }
 
-/* --- أزرار فتح الأقسام (بياناتي / إحصائيات) --- */
 .toggle-section-btn {
     width: 100%;
     display: flex;
@@ -106,7 +104,6 @@ body {
     text-align: center;
 }
 
-/* --- قسم البيانات الشخصية --- */
 .data-section {
     display: flex;
     flex-direction: column;
@@ -149,7 +146,6 @@ body {
     font-size: 16px;
 }
 
-/* --- أزرار من نوع "رابط" (تغيير الاسم / كلمة السر / حذف الحساب) --- */
 .link-btn {
     display: inline-flex;
     align-items: center;
@@ -171,7 +167,6 @@ body {
     color: var(--danger);
 }
 
-/* --- صندوق التعديل (يظهر بعد الضغط) --- */
 .edit-box {
     display: flex;
     flex-direction: column;
@@ -199,7 +194,6 @@ body {
     box-shadow: 0 0 0 3px rgba(79, 124, 255, 0.15);
 }
 
-/* --- حقل كلمة السر مع زر إظهار/إخفاء --- */
 .password-field {
     position: relative;
     display: flex;
@@ -227,7 +221,6 @@ body {
     color: var(--accent);
 }
 
-/* --- صف الأزرار (تأكيد / رجوع / إلغاء) --- */
 .btn-row {
     display: flex;
     justify-content: flex-end;
@@ -277,7 +270,6 @@ body {
     opacity: 0.85;
 }
 
-/* --- بطاقة حذف الحساب --- */
 .danger-card {
     border: 1px solid var(--danger-light);
 }
@@ -294,7 +286,6 @@ body {
     font-size: 14px;
 }
 
-/* --- الإحصائيات --- */
 .stats-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -344,7 +335,6 @@ body {
     color: var(--danger);
 }
 
-/* --- الموبايل --- */
 @media (max-width: 500px) {
     .toggle-section-btn {
         font-size: 15px;

@@ -19,18 +19,6 @@ body {
     background-color: #f4f6f8;
     color: var(--text-dark);
 }
-
-/* حاوية عامة لتوسيط المحتوى على شاشات الكمبيوتر الكبيرة */
-/* .header,
-.add-task,
-.filter-btn,
-.hint,
-.tasks {
-    max-width: var(--max-width);
-    margin-left: auto;
-    margin-right: auto;
-} */
-
 .flash-container {
     position: fixed;
     top: 20px;
@@ -86,7 +74,6 @@ body {
     }
 }
 
-/* الهيدر: العنوان على جهة وزر الإعدادات على الجهة الأخرى */
 .header {
     display: flex;
     align-items: center;

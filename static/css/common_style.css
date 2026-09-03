@@ -8,7 +8,6 @@ body {
     padding: 0;
 }
 
-/* --- الهوية البصرية الموحدة لكل صفحات الموقع --- */
 :root {
     --primary: #4f7cff;
     --primary-dark: #3b5fe0;
@@ -29,9 +28,6 @@ body {
     color: var(--text);
 }
 
-/* ============================
-   حقل كلمة السر (dashboard)
-   ============================ */
 .password-field {
     position: relative;
     display: flex;

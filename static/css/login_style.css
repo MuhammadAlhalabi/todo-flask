@@ -19,7 +19,6 @@ a {
     color: inherit;
 }
 
-/* ===== Header / Nav ===== */
 header {
     background: #ffffff;
     border-bottom: 1px solid #e5e7eb;
@@ -71,7 +70,6 @@ nav ul li button.contact-up:hover {
     color: #2563eb;
 }
 
-/* Contact dropdown */
 nav ul li {
     position: relative;
 }
@@ -107,7 +105,6 @@ nav ul li {
     color: #2563eb;
 }
 
-/* ===== Form Container ===== */
 .form-container {
     flex: 1;
     display: flex;
@@ -133,7 +130,6 @@ form h1 {
     color: #111827;
 }
 
-/* حاوية كل حقل — تتحكم بالتباعد بدل <br><br> */
 .form-group {
     margin-bottom: 18px;
     text-align: start;
@@ -192,7 +188,6 @@ form>a:hover {
     text-decoration: underline;
 }
 
-/* Flash messages (toast عائم يختفي تلقائياً) */
 form p {
     position: fixed;
     bottom: 24px;

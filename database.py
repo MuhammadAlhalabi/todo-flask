@@ -1,5 +1,6 @@
 import sqlite3
 
+
 def init_db():
   connection = sqlite3.connect("database.db")
   connection.execute("PRAGMA foreign_keys=ON")
@@ -40,10 +41,10 @@ def get_user(username):
     connection = get_connection()
     connection.row_factory = (
         sqlite3.Row
-    )  # مشان أحسن استدعي قيمة من قاعدة البيانات عن طريق اسمها
+    )
     user = connection.execute(
         "SELECT * FROM users WHERE username=?", (username,)
-    ).fetchone()  # fetchone بيرجع tuple لهيك استعملنا row_factory
+    ).fetchone()
     connection.close()
     return user
 
@@ -175,7 +176,7 @@ def get_total_tasks(user_id):
     total_tasks=connection.execute("""
     SELECT COUNT(*) FROM tasks
     WHERE user_id=?
-    """,(user_id,)).fetchone()[0]#بما أننا نرجع قيمة واحدة ف سنرجعها ك قيمة فردية وليس taple
+    """,(user_id,)).fetchone()[0]
     connection.close()
     return total_tasks
 

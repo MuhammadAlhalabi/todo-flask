@@ -1,17 +1,13 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
-from database import *
-from werkzeug.security import generate_password_hash, check_password_hash
 import os
-from dotenv import load_dotenv
-load_dotenv()# تساعد على قراءة المتغيرات داخل .env
 
-# render_template قالب العرض
-# request جلب البيانات
-# redirect اعادة التوجيه
-# session أدارة الجلسات
-# flash رسائل تظهر بعد ارسال البيانات
+from database import *
+from dotenv import load_dotenv
+from flask import Flask, flash, redirect, render_template, request, session, url_for
+from werkzeug.security import check_password_hash, generate_password_hash
+
+load_dotenv()
 app = Flask(__name__, template_folder="templates", static_folder="static")
-app.secret_key = os.environ.get("SECRET_KEY")  # التوقيع الخاص بالجلسة
+app.secret_key = os.environ.get("SECRET_KEY")  
 if not app.secret_key:
     raise RuntimeError("SECRET_KEY is not set")
 
@@ -20,7 +16,7 @@ if not app.secret_key:
 def main():
     if "user_id" not in session:
         return redirect(url_for("login"))
-    filter_task = request.args.get("filter", "all")  # إضافة قيمة افتراضية للفلتر
+    filter_task = request.args.get("filter", "all")  
     user_id = session["user_id"]
     tasks = get_tasks(user_id, filter_task)
     return render_template("main.html", tasks=tasks, filter_task=filter_task)
@@ -32,7 +28,7 @@ def add_tasks():
         return redirect(url_for("login"))
     title = request.form.get(
         "title", ""
-    ).strip()  # اذا لم يجد فلاسك شيء داخل الحقل النصي اعطني "" بدلاً من none
+    ).strip() 
     if not title:
         return redirect(url_for("main"))
     user_id = session["user_id"]
@@ -197,4 +193,4 @@ def logout():
 
 if __name__ == "__main__":
     init_db()
-    app.run(host="0.0.0.0", debug=True, port=5000) #عند النشر يجب إيقاف debug
+    app.run(host="0.0.0.0", debug=True, port=5000) 

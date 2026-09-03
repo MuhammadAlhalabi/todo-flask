@@ -18,7 +18,7 @@
             </div>
             <ul>
                 <li><a href="{{url_for('login')}}">Log In</a></li>
-                <li><a href="{{url_for('register')}}">Sign Up</a></li> <!-- اسم الدالة و ليس اسم الملف -->
+                <li><a href="{{url_for('register')}}">Sign Up</a></li>
                 
                 <li>
                     <a href="#" class="contact-up">Contact</a>
@@ -59,7 +59,7 @@
             {% with messages=get_flashed_messages(with_categories=true)%}
             {%if messages %}
             {%for category,message in messages%}
-            <p class="{{category}}">{{message}}</p> <!-- فئة الرسالة-->
+            <p class="{{category}}">{{message}}</p> 
             {%endfor%}
             {%endif%}
             {%endwith%}
