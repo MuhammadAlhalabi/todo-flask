@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common_style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main_style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}">
+    <title>الصفحة الرئيسية</title>
+</head>
+
+<body>
+    <div class="flash-container">
+        {%with messages=get_flashed_messages(with_categories=true)%}
+        {%if messages%}
+        {%for category,msg in messages%}
+        <div class="flash {{category}}">{{msg}}</div>
+        {%endfor%}
+        {%endif%}
+        {%endwith%}
+    </div>
+
+    <div class="header">
+        <div></div>
+        <span>قائمة المهام</span>
+        <a href="{{url_for('dashboard')}}" class="icon-btn"><i class="fa-solid fa-ellipsis-vertical"></i></a>
+    </div>
+ <div class="filter-btn">
+        <a href="{{url_for('main')}}" class="{%if filter_task=='all'%}active{%endif%}">جميع المهام</a>
+        <a href="{{url_for('main',filter='active')}}" class="{%if filter_task=='active'%}active{%endif%}">غير مكتملة</a>
+        <a href="{{url_for('main',filter='completed')}}" class="{%if filter_task=='completed'%}active{%endif%}">مكتملة</a>
+    </div>
+
+    <div class="add-task">
+        <!-- فورم الإضافة -->
+        <form action="/add-task" method="POST" class="add-task-form">
+            <button type="button" id="toggleBtn" onclick="toggleField()" aria-label="إضافة مهمة">
+                <i class="fa-solid fa-plus"></i>
+            </button>
+            <div class="adder" id="filed-add-task" style="display: none;">
+                <label for="task_title">عنوان المهمة</label>
+                <input type="text" id="task_title" name="title" required>
+                <div class="add-btn">
+
+                    <button type="submit" id="submit_btn">إضافة</button>
+                    <button type="button" onclick="hideAddTask()">رجوع</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+   
+
+    <p class="hint">المهام:</p>
+
+    {%if tasks %}
+    {%for task in tasks%}
+    <div class="tasks">
+        <!-- فورم إكمال المهمة و عرضها -->
+        <form action="/update-task" method="POST" class="task">
+            <input type="hidden" name="task_id" value="{{task['id']}}">
+            <input type="hidden" name="completed" value="0">
+            <input type="checkbox" name="completed" value="1" onchange="this.form.submit()"
+                {%if task['completed']==1 %}checked{%endif%}>
+            <input type="text" name="title"
+                class="task-title {%if task['completed']==1 %}completed-task{%endif%}"
+                value="{{task['title']}}" disabled>
+        </form>
+
+        <div class="task-actions">
+            <!-- فورم الحذف -->
+            <form action="/delete-task" method="post">
+                <input type="hidden" name="task_id" value="{{task['id']}}">
+                <button type="submit" aria-label="حذف المهمة"><i class="fa-solid fa-trash"></i></button>
+            </form>
+            <!-- فورم التعديل -->
+            <form action="/update-task" method="POST" class="edit-title">
+                <input type="hidden" name="task_id" value="{{task['id']}}">
+                <button type="button" class="edit-btn" onclick="editField(this)" aria-label="تعديل المهمة">
+                    <i class="fa-solid fa-pen"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+    {%endfor%}
+    {% else %}
+    <p>لا توجد مهام</p>
+    {%endif%}
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+
+</html>

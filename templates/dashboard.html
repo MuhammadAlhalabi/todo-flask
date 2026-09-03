@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='../static/css/common_style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='../static/css/dashboard_style.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}">
+    <title>Dashboard Page</title>
+</head>
+
+<body>
+
+    <div class="flash-container">
+        {%with messages =get_flashed_messages(with_categories=true)%}
+        {%if messages%}
+        {%for cate,msg in messages%}
+        <div class="flash {{cate}}">{{msg}}</div>
+        {%endfor%}
+        {%endif%}
+        {%endwith%}
+    </div>
+
+    <div class="dashboard-container">
+
+        <div class="header">
+            <span>لوحة التحكم</span>
+        </div>
+        <a href="{{url_for('main')}}" class="back-link">
+            <i class="fa-solid fa-arrow-right"></i>
+            الرجوع للصفحة الرئيسية
+        </a>
+
+        <div class="my-data">
+            <button type="button" class="toggle-section-btn" onclick="toggleAll()">
+                <i class="fa-solid fa-id-card"></i>
+                بياناتي الشخصية
+            </button>
+
+            <div class="data-section" id="personal-data-section" style="display: none;">
+
+                <!-- تعديل اسم المستخدم -->
+                <div class="data-card username">
+                    <form action="/update-username" method="POST">
+                        <div class="card-row">
+                            <div class="field-label">
+                                <i class="fa-solid fa-user"></i>
+                                <span>اسم المستخدم</span>
+                            </div>
+                            <p class="current-value">{{session['username']}}</p>
+                        </div>
+                        <button type="button" id="show-user" class="link-btn" onclick="toggleUsername()">
+                            <i class="fa-solid fa-pen"></i>
+                            تغيير اسم المستخدم
+                        </button>
+                        <div id="username-edit" class="edit-box" style="display: none;">
+                            <input type="text" placeholder="اسم المستخدم الجديد" name="new-username">
+                            <div class="btn-row">
+                                <input type="submit" value="تغيير" id="username-btn" class="btn-primary">
+                                <input type="button" value="رجوع" class="btn-secondary" onclick="hideeUsername()">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- تغيير كلمة السر -->
+                <div class="data-card password">
+                    <form action="/update-password" method="POST">
+                        <button type="button" id="show-pass" class="link-btn" onclick="togglePassword()">
+                            <i class="fa-solid fa-lock"></i>
+                            تغيير كلمة السر
+                        </button>
+                        <div id="password-edit" class="edit-box" style="display: none;">
+
+                            <div class="password-field">
+                                <input type="password" name="old-password" id="old-password"
+                                    placeholder="كلمة السر القديمة">
+                                <button type="button" class="toggle-password" data-target="old-password"
+                                    aria-label="إظهار كلمة السر">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                            </div>
+                            <div class="password-field">
+                                <input type="password" name="new-password" id="new-password"
+                                    placeholder="كلمة السر الجديدة">
+                                <button type="button" class="toggle-password" data-target="new-password"
+                                    aria-label="إظهار كلمة السر">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                            </div>
+                            <div class="btn-row">
+                                <button type="button" class="btn-secondary" onclick="hidePassword()">رجوع</button>
+                                <input type="submit" value="تغيير" class="btn-primary">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- حذف الحساب -->
+                <div class="data-card danger-card delete-account">
+                    <form action="/delete" method="post">
+                        <button type="button" id="show-delete" class="link-btn danger-text" onclick="toggleDelete()">
+                            <i class="fa-solid fa-trash-can"></i>
+                            حذف الحساب
+                        </button>
+                        <div id="filed-delete" class="edit-box" style="display: none;">
+                            <p class="warning-text">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                                هذا الإجراء لا يمكن التراجع عنه، سيتم حذف جميع بياناتك ومهامك نهائياً
+                            </p>
+                            <div class="btn-row">
+                                <button type="button" id="cancel-delete" class="btn-secondary"
+                                    onclick="hideDelete()">إلغاء</button>
+                                <button type="submit" id="confirm" class="btn-danger">
+                                    <i class="fa-solid fa-check"></i>
+                                    تأكيد
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <button type="button" class="toggle-section-btn" onclick="showStat()">
+            <i class="fa-solid fa-chart-simple"></i>
+            احصائيات
+        </button>
+
+        <div id="statistics" class="stats-container" style="display: none;">
+            <div class="stat">
+                <i class="fa-solid fa-list-check"></i>
+                <span>أجمالي المهام</span>
+                <strong>{{total_tasks}}</strong>
+            </div>
+            <div class="stat">
+                <i class="fa-solid fa-circle-check"></i>
+                <span>المهام المكتملة</span>
+                <strong>{{completed_tasks}}</strong>
+            </div>
+            <div class="stat">
+                <i class="fa-solid fa-clock"></i>
+                <span>المهام غير المكتملة</span>
+                <strong>{{uncompleted_tasks}}</strong>
+            </div>
+        </div>
+
+        <a href="{{url_for('logout')}}" class="logout-link">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            تسجيل الخروج
+        </a>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+
+</html>

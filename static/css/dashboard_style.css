@@ -1,0 +1,381 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #4f7cff;
+    --accent: #0397b8;
+    --danger: #d64545;
+    --danger-light: #fdecec;
+    --text-dark: #2c2c2c;
+    --text-muted: #6b7280;
+    --border: #e2e5e9;
+    --radius: 10px;
+    --max-width: 640px;
+}
+
+body {
+    font-family: Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0 12px 40px;
+    background-color: #f4f6f8;
+    color: var(--text-dark);
+}
+
+/* --- رسائل التنبيه (احتياطاً في حال لم تُعرَّف في common_style.css) --- */
+.flash-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(400px, 90%);
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.flash {
+    padding: 10px 12px;
+    border-radius: var(--radius);
+    font-size: 15px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    background-color: #e3f2fd;
+    color: #1565c0;
+}
+
+.header {
+        display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    margin: 0 -12px 20px ;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.5);
+    color: var(--accent);
+}
+.header p{
+    text-align: center;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 15px;
+    transition: color 0.2s;
+}
+
+.back-link:hover {
+    color: var(--primary);
+}
+
+/* --- أزرار فتح الأقسام (بياناتي / إحصائيات) --- */
+.toggle-section-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    margin: 10px 0;
+    border: none;
+    border-radius: var(--radius);
+    background: #fff;
+    color: var(--text-dark);
+    font-size: 16px;
+    font-family: inherit;
+    text-align: start;
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.2s, background-color 0.2s;
+}
+
+.toggle-section-btn:hover {
+    background-color: #fafbfc;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.toggle-section-btn i {
+    color: var(--accent);
+    font-size: 18px;
+    width: 20px;
+    text-align: center;
+}
+
+/* --- قسم البيانات الشخصية --- */
+.data-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 10px;
+    
+}
+
+.data-card {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.card-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.field-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.field-label i {
+    color: var(--accent);
+    width: 16px;
+    text-align: center;
+}
+
+.current-value {
+    margin: 0;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* --- أزرار من نوع "رابط" (تغيير الاسم / كلمة السر / حذف الحساب) --- */
+.link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--accent);
+    font-family: inherit;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.link-btn:hover {
+    text-decoration: underline;
+}
+
+.link-btn.danger-text {
+    color: var(--danger);
+}
+
+/* --- صندوق التعديل (يظهر بعد الضغط) --- */
+.edit-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+}
+
+.edit-box input[type="text"],
+.edit-box input[type="password"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+    background-color: #fff;
+}
+
+.edit-box input[type="text"]:focus,
+.edit-box input[type="password"]:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(79, 124, 255, 0.15);
+}
+
+/* --- حقل كلمة السر مع زر إظهار/إخفاء --- */
+.password-field {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-field input {
+    padding-left: 40px;
+}
+
+.toggle-password {
+    position: absolute;
+    left: 8px;
+    border: none;
+    background: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-password:hover {
+    color: var(--accent);
+}
+
+/* --- صف الأزرار (تأكيد / رجوع / إلغاء) --- */
+.btn-row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-danger {
+    padding: 9px 16px;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: opacity 0.2s, background-color 0.2s;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    opacity: 0.85;
+}
+
+.btn-secondary {
+    background: #eef0f2;
+    color: var(--text-dark);
+}
+
+.btn-secondary:hover {
+    background: #e2e5e9;
+}
+
+.btn-danger {
+    background: var(--danger);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-danger:hover {
+    opacity: 0.85;
+}
+
+/* --- بطاقة حذف الحساب --- */
+.danger-card {
+    border: 1px solid var(--danger-light);
+}
+
+.warning-text {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 12px;
+    padding: 10px 12px;
+    background-color: var(--danger-light);
+    color: var(--danger);
+    border-radius: var(--radius);
+    font-size: 14px;
+}
+
+/* --- الإحصائيات --- */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 10px 0 20px;
+}
+
+.stat {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 16px 10px;
+    text-align: center;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.stat i {
+    font-size: 20px;
+    color: var(--accent);
+}
+
+.stat span {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.stat strong {
+    font-size: 20px;
+}
+
+/* --- تسجيل الخروج --- */
+.logout-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    margin-top: 10px;
+    transition: color 0.2s;
+}
+
+.logout-link:hover {
+    color: var(--danger);
+}
+
+/* --- الموبايل --- */
+@media (max-width: 500px) {
+    .toggle-section-btn {
+        font-size: 15px;
+        padding: 12px 14px;
+    }
+
+    .data-card {
+        padding: 14px;
+    }
+
+    .stats-container {
+        gap: 8px;
+    }
+
+    .stat {
+        padding: 12px 6px;
+    }
+
+    .stat strong {
+        font-size: 18px;
+    }
+
+    .btn-row {
+        flex-wrap: wrap;
+    }
+
+    .btn-primary,
+    .btn-secondary,
+    .btn-danger {
+        flex: 1;
+        text-align: center;
+    }
+}
+
